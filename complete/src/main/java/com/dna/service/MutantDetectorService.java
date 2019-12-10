@@ -1,11 +1,8 @@
 package com.dna.service;
 
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 @Service
 public class MutantDetectorService
@@ -24,22 +21,22 @@ public class MutantDetectorService
         if(occurrencesCant > 1){
             return true;
         }
-     // List allDiagonals = getAllDiagonals(dna);
-     // for(int i = 0 ; i < allDiagonals.length;i++){
-     //     for(int j = 0 ; j < patterns.length; j++){
-     //         System.out.println("La palabra diagonal es: " + allDiagonals[i]);
-     //         occurrencesCant += occurrencesCant(allDiagonals[i],patterns[j]);
-     //     }
+      List<String> diagonals = getDiagonals(dna);
+      for(int i = 0 ; i < diagonals.size();i++){
+          for(int j = 0 ; j < patterns.length; j++){
+              System.out.println("La palabra diagonal es: " + diagonals.get(i));
+              occurrencesCant += occurrencesCant(diagonals.get(i),patterns[j]);
+          }
 
-     // }
-     // if(occurrencesCant > 1){
-     //     return true;
-     // }
+      }
+      if(occurrencesCant > 1){
+          return true;
+      }
 
-        String[] allVerticals = getAllVerticals(dna);
-        for(int i = 0 ; i < allVerticals.length;i++){
+        String[] verticals = getVerticals(dna);
+        for(int i = 0 ; i < verticals.length;i++){
             for(int j = 0 ; j < patterns.length; j++){
-                occurrencesCant += occurrencesCant(allVerticals[i],patterns[j]);
+                occurrencesCant += occurrencesCant(verticals[i],patterns[j]);
             }
 
         }
@@ -49,79 +46,41 @@ public class MutantDetectorService
         return false;
     }
 
-    private List<String> getAllDiagonals(String[] dna){
-        List<String> diagonals = new ArrayList<>();
-        int n = dna.length*2-1;
-        int middlePoint = dna.length;
-        int diagonalLength = 0;
-        String diagonal = "";
-        for(int i = 0 ; i < n;i++){
+    public static List<String> getDiagonals(String[] a) {
+        List<String> diagonals = new ArrayList<String>();
+        String line = "";
 
-            if(diagonalLength < 4){
-                continue;
-            }
-            if(diagonalLength <= dna.length -1){
-                diagonalLength ++;
-                int varInicial = dna.length-1;
-                for(int j = 0 ; j < dna.length;j++){
-                    diagonal = diagonal + dna[j].charAt(varInicial);
-                    varInicial --;
+        for (int j = 0; j <= a.length + a.length - 2; j++) {
+            for (int k = 0; k <= j; k++) {
+                int l = j - k;
+                int mirror = a.length - l;
+                if (mirror >= 0 && mirror < a.length && k < a.length) {
+                    line = line + a[mirror].charAt(k);
                 }
-                diagonals.add(diagonal);
-                diagonal = "";
             }
-            else{
-                diagonalLength --;
-            }
-
+            diagonals.add(line);
+            line = "";
         }
 
-
-
-     //  int n = dna.length;
-     //  int start = 0;
-     //  String[] verticalsArray = new String[n*2-1];
-     //  for(int i = 0; i < verticalsArray.length;i++){
-     //      verticalsArray[i] = "";
-     //  }
-     //  int leftBeginning = 0;
-     //  String leftSide = "";
-     //  String rightSide = "";
-
-     //  for(int i = 0 ; i < n*2-1;i++){
-
-     //      if(i <= n-1){
-     //          leftBeginning ++;
-     //          int varInicial = 0;
-     //          for(int j = leftBeginning-1; j >= 0; j--){
-     //              leftSide = leftSide + dna[varInicial].charAt(j);
-     //              rightSide = rightSide;
-     //              varInicial ++;
-     //          }
-     //          verticalsArray[i] = leftSide;
-     //          leftSide = "";
-     //      }
-     //      if(i > n-1){
-     //         leftBeginning --;
-     //        // int varInicial = dna.length-1;
-     //        // for(int j = dna.length-1;j > 0;j--){
-     //        //     leftSide = leftSide + dna[varInicial].charAt(j);
-     //        //     varInicial --;
-     //        // }
-     //        // verticalsArray[i] = leftSide;
-     //        // leftSide="";
-     //        int varInicial = dna.length-1;
-     //        for(int j = dna.length-1 ; j < dna.length-leftBeginning; j --){
-     //            System.out.println("El string es: " + dna[j].charAt(j));
-     //            leftSide = leftSide + dna[j].charAt(j);
-     //        }
-     //          verticalsArray[i] = leftSide;
-     //          leftSide = "";
-     //      }
-
-     //  }
         return diagonals;
     }
+
+    private static String[] getVerticals(String[] dna){
+        String[] verticals = new String[dna.length];
+        String vertical;
+
+        for(int i = 0 ; i < dna.length; i++){
+            vertical = "";
+            vertical = vertical + dna[0].charAt(i);
+
+            for(int j = 1 ; j < dna.length ; j++){
+                vertical = vertical + dna[j].charAt(i);
+            }
+            verticals[i] = vertical;
+        }
+        return verticals;
+    }
+
 
     private static int occurrencesCant(String word, String pattern){
         //System.out.println("la palabra es : " + word + " y el patron es : " + pattern);
@@ -141,20 +100,5 @@ public class MutantDetectorService
         return count;
     }
 
-    private static String[] getAllVerticals(String[] dna){
-        String[] verticals = new String[dna.length];
-        String vertical;
-
-        for(int i = 0 ; i < dna.length; i++){
-            vertical = "";
-            vertical = vertical + dna[0].charAt(i);
-
-            for(int j = 1 ; j < dna.length ; j++){
-                vertical = vertical + dna[j].charAt(i);
-            }
-            verticals[i] = vertical;
-        }
-        return verticals;
-    }
 
 }

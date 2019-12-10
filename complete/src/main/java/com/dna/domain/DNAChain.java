@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class DNAChain {
     private String[] dna;
+    private boolean mutante;
 
     public DNAChain(@JsonProperty(value = "dna", required = true) String[] dna) {
-        this.dna = dna;
+        this.dna = dna; mutante = false;
     }
 
     public String[] getDna() {
@@ -20,6 +21,11 @@ public class DNAChain {
         this.dna = dna;
     }
 
+    public boolean isMutante() {
+        return mutante;
+    }
 
-
+    public void setMutante(boolean mutante) {
+        this.mutante = mutante;
+    }
 }
