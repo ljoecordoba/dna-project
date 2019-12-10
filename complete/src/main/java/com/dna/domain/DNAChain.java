@@ -3,9 +3,17 @@ package com.dna.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-public class DNAChain {
+import java.io.Serializable;
+
+@Data
+@Document(collection = "dna")
+public class DNAChain implements Serializable {
+
     private String[] dna;
     private boolean mutante;
 

@@ -1,5 +1,8 @@
 package com.dna.service;
 
+import com.dna.domain.DNAChain;
+import com.dna.repository.DNAWriterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +12,13 @@ public class MutantDetectorService
 {
     private String[] patterns = {"AAAA","TTTT","CCCC","GGGG"};
 
+
     public MutantDetectorService(){}
 
+
+
     public boolean isMutant(String[] dna){
+        DNAChain dnaChain = new DNAChain(dna);
         int occurrencesCant = 0;
         for(int i = 0 ;i < dna.length;i ++){
             for (int j = 0 ; j < patterns.length; j++){
@@ -19,6 +26,7 @@ public class MutantDetectorService
             }
         }
         if(occurrencesCant > 1){
+            dnaChain.setMutante(true);
             return true;
         }
       List<String> diagonals = getDiagonals(dna);
@@ -30,6 +38,7 @@ public class MutantDetectorService
 
       }
       if(occurrencesCant > 1){
+          dnaChain.setMutante(true);
           return true;
       }
 
@@ -41,6 +50,7 @@ public class MutantDetectorService
 
         }
         if(occurrencesCant > 1){
+            dnaChain.setMutante(true);
             return true;
         }
         return false;
@@ -101,4 +111,11 @@ public class MutantDetectorService
     }
 
 
+    public boolean isValidDNA(String[] dna) {
+        boolean equal = true;
+        for(String chain: dna){
+            equal = equal && dna.length == chain.length();
+        }
+        return dna != null && equal;
+    }
 }
