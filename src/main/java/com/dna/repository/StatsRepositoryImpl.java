@@ -68,6 +68,11 @@ public class StatsRepositoryImpl implements StatsRepository{
 
         AggregationResults<Stats> result = this.template.aggregate(aggregation, DNA.class, Stats.class);
         Stats stats = result.getUniqueMappedResult();
-        return stats;
+        if(stats == null){
+            return new Stats();
+        }
+        else{
+            return stats;
+        }
     }
 }
