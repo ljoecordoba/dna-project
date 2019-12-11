@@ -1,7 +1,7 @@
 ## Desafio Mercado Libre
 
 Se pidio construir una API para checkear si un ADN es mutante y guardar los mismos datos. Luego adicionalmente se solicito obtener el ratio de mutantes en cuanto a no mutantes.
-La misma se realizo y su endpoint es 
+La misma se realizo y su URL es http://dna-verifier-api.us-east-1.elasticbeanstalk.com
 
 ## Verificar mutantes
 
@@ -18,9 +18,18 @@ En caso de verificarse un mutante la API devolvera un response con el codigo de 
 
 Para obtener el status de la base de datos de ADNs se debe enviar un request HTTP con metodo GET  a la siguiente URI:
 
-http://dna-verifier-api.us-east-1.elasticbeanstalk.com/mutant
+http://dna-verifier-api.us-east-1.elasticbeanstalk.com/stats
 
-El mismo devolvera un mensaje en formato JSON con los siguientes datos:
+El mismo devolvera un mensaje en formato JSON con los siguientes datos: cantidad total de mutantes, cantidad total de humanos regulares, el ratio de mutantes y el total de adns en la base de datos.
+
+Ejemplo:
+
+{
+  "mutantCount": 2,
+  "humanCount": 2,
+  "ratio": 1.00,
+  "total": 4
+}
 
 
 
