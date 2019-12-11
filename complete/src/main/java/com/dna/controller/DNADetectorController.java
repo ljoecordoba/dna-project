@@ -1,6 +1,7 @@
 package com.dna.controller;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import com.dna.domain.DNA;
 import com.dna.repository.DNAWriterRepository;
@@ -37,7 +38,7 @@ public class DNADetectorController implements Serializable {
 		if(mutantDetectorService.isMutant(DNA.getDna())){
 			DNA.setMutante(true);
 			try{
-				dnaWriterRepository.save(DNA);
+				dnaWriterRepository.insert(DNA);
 			}
 			catch (Exception e){
 				logger.error("No se pudo insertar el documento en la base de datos: "  + e.getMessage());
@@ -46,7 +47,7 @@ public class DNADetectorController implements Serializable {
 		}
 		else{
 			try{
-				dnaWriterRepository.save(DNA);
+				dnaWriterRepository.insert(DNA);
 			}
 			catch (Exception e){
 				logger.error("No se pudo insertar el documento en la base de datos: " + e.getMessage());

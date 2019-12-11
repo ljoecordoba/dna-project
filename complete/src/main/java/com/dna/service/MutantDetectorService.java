@@ -14,7 +14,6 @@ public class MutantDetectorService
     public MutantDetectorService(){}
 
 
-
     public boolean isMutant(String[] dna){
         DNA DNA = new DNA(dna);
         int occurrencesCant = 0;

@@ -13,11 +13,19 @@ import java.io.Serializable;
 @Data
 @Document(collection = "dna")
 public class DNA implements Serializable {
-
+    @Id
+    private int dnaId = 0;
     private String[] dna;
     private boolean mutante;
 
     public DNA(@JsonProperty(value = "dna", required = true) String[] dna) {
+        String letters = "";
+        for (String dnaString:
+             dna) {
+            letters = letters.concat(dnaString);
+        }
+        dnaId = letters.hashCode();
+
         this.dna = dna; mutante = false;
     }
 
@@ -35,5 +43,13 @@ public class DNA implements Serializable {
 
     public void setMutante(boolean mutante) {
         this.mutante = mutante;
+    }
+
+    public Integer getDnaId() {
+        return dnaId;
+    }
+
+    public void setDnaId(Integer dnaId) {
+        this.dnaId = dnaId;
     }
 }
