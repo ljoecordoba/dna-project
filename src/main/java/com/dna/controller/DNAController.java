@@ -1,7 +1,6 @@
 package com.dna.controller;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 import com.dna.domain.DNA;
 import com.dna.domain.Stats;
@@ -17,11 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class DNADetectorController implements Serializable {
+public class DNAController implements Serializable {
 
 
 
-	Logger logger = LoggerFactory.getLogger(DNADetectorController.class.getName());
+	Logger logger = LoggerFactory.getLogger(DNAController.class.getName());
 	@Autowired
 	private DNAWriterRepository dnaWriterRepository;
 

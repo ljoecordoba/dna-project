@@ -9,7 +9,7 @@ import java.util.List;
 public class MutantDetectorService
 {
     private String[] patterns = {"AAAA","TTTT","CCCC","GGGG"};
-    
+
     public MutantDetectorService(){}
 
 
