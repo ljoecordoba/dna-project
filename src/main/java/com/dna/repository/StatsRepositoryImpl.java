@@ -1,5 +1,6 @@
 package com.dna.repository;
 
+import com.dna.domain.DNA;
 import com.dna.domain.Stats;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 
@@ -24,40 +26,48 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.grou
 public class StatsRepositoryImpl implements StatsRepository{
 
 
-    private Logger logger = LoggerFactory.getLogger(StatsRepositoryImpl.class.getName());
     @Autowired
     private transient MongoTemplate template;
 
     @Override
     public Stats getStats() {
-        Stats stats = getSumaTotalAndMutante();
-        //logger.info("Los campos son " + stats.getMutantQuantity() + " y " + stats.getHumansQuantity());
-        //stats.setRatio(stats.getMutantQuantity().divide(stats.getHumansQuantity()));
+        Stats stats = getStatsWithoutRatio();
+        BigDecimal ratio = getRatio(stats);
+        stats.setRatio(ratio);
         return stats;
     }
 
 
-    private BigDecimal getRadio(){
-        return null;
+    private BigDecimal getRatio(Stats stats){
+        BigDecimal ratio = BigDecimal.ZERO;
+
+        if (stats.getMutantCount() != 0) {
+            if (stats.getHumanCount() == 0) {
+                ratio = BigDecimal.ONE;
+            } else {
+                BigDecimal mutant = BigDecimal.valueOf(stats.getMutantCount());
+                BigDecimal human = BigDecimal.valueOf(stats.getHumanCount());
+                ratio = mutant.divide(human, 2, RoundingMode.HALF_UP);
+            }
+        }
+        return ratio;
+
     }
 
 
-    private Stats getSumaTotalAndMutante() {
+    private Stats getStatsWithoutRatio() {
 
         Aggregation aggregation = Aggregation.newAggregation(
                 group()
                         .sum(ConditionalOperators
-                                .when(ComparisonOperators.valueOf("mutante").equalToValue(true)).then(1).otherwise(0)).as("mutantsQuantity")
+                                .when(ComparisonOperators.valueOf("mutante").equalToValue(true)).then(1).otherwise(0)).as("mutantCount")
                         .sum(ConditionalOperators
-                                .when(ComparisonOperators.valueOf("mutante").equalToValue(false)).then(1).otherwise(0)).as("humansQuantity")
-
+                                .when(ComparisonOperators.valueOf("mutante").equalToValue(false)).then(1).otherwise(0)).as("nonMutantCount")
+                        .count().as("total")
         );
-        Aggregation ownAggregation = Aggregation.newAggregation(Aggregation.match(Criteria.where("mutante").is(true)),Aggregation.group().count().as("totalMutants"));
-        //AggregationResults<Stats> results = this.template.aggregate(aggregation, Stats.class, Stats.class);
-        AggregationResults<Stats> results = this.template.aggregate(aggregation,Stats.class,Stats.class);
-        //Long.parseLong(results.getMappedResults().get(0).getT;
 
-        Stats status = results.getUniqueMappedResult();
-        return status;
+        AggregationResults<Stats> result = this.template.aggregate(aggregation, DNA.class, Stats.class);
+        Stats stats = result.getUniqueMappedResult();
+        return stats;
     }
 }

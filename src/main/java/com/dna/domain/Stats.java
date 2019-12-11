@@ -1,52 +1,85 @@
 package com.dna.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Stats {
 
-    private BigDecimal mutantQuantity = new BigDecimal("0.0");
-    private BigDecimal humansQuantity = new BigDecimal("0.0");
-    private BigDecimal ratio = new BigDecimal("0.0");
-    private boolean mutante = false;
+    @JsonProperty("count_mutant_dna")
+    private Long mutantCount = 0L;
+    @JsonProperty("count_human_dna")
+    private Long humanCount = 0L;
+    private BigDecimal ratio;
+    @JsonIgnore
+    private Long total = 0L;
 
+    /**
+     * @return the mutantCount
+     */
+    public Long getMutantCount() {
+        return mutantCount;
+    }
 
-//public BigDecimal getMutantQuantity() {
-//return mutantQuantity;
-//}
+    /**
+     * @param mutantCount the mutantCount to set
+     */
+    public void setMutantCount(Long mutantCount) {
+        this.mutantCount = mutantCount;
+    }
 
-//public void setMutantQuantity(BigDecimal mutantQuantity) {
-//this.mutantQuantity = mutantQuantity;
-//}
+    /**
+     * @return the humanCount
+     */
+    public Long getHumanCount() {
+        return humanCount;
+    }
 
-//public BigDecimal getHumansQuantity() {
-//return humansQuantity;
-//}
+    /**
+     * @param humanCount the humanCount to set
+     */
+    public void setHumanCount(Long humanCount) {
+        this.humanCount = humanCount;
+    }
 
-//public void setHumansQuantity(BigDecimal humansQuantity) {
-//this.humansQuantity = humansQuantity;
-//}
+    /**
+     * @return the ratio
+     */
+    public BigDecimal getRatio() {
+        return ratio;
+    }
 
-//public BigDecimal getRatio() {
-//return ratio;
-//}
+    /**
+     * @param ratio the ratio to set
+     */
+    public void setRatio(BigDecimal ratio) {
+        this.ratio = ratio;
+    }
 
-//public void setRatio(BigDecimal ratio) {
-//this.ratio = ratio;
-//}
+    /**
+     * @return the total
+     */
+    public Long getTotal() {
+        return total;
+    }
 
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(Long total) {
+        this.total = total;
+    }
 
-//public boolean isMutante() {
-//return mutante;
-//}
-
-//public void setMutante(boolean mutante) {
-//this.mutante = mutante;
-//}
-
-//@Override
-//public String toString(){
-//return "{" + "\"count_mutant_dna\":"+mutantQuantity+", " + " \"count_human_dna:\":" + humansQuantity +
-//", \"ratio\": " +  ratio + "}";
-//}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "DNAStatus [mutantCount=" + mutantCount + ", humanCount=" + humanCount + ", ratio=" + ratio + ", total="
+                + total + "]";
+    }
 }
