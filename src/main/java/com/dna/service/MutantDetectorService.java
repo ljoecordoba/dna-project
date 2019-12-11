@@ -9,14 +9,7 @@ import java.util.List;
 public class MutantDetectorService
 {
     private String[] patterns = {"AAAA","TTTT","CCCC","GGGG"};
-
-
-    public static void main(String[] args){
-        String[] dna6 = {"AAAAGT","CAGTGT","TTATTT","AGACGT","GCGTCT","TCACTT"};
-        MutantDetectorService mutantDetectorService = new MutantDetectorService();
-        System.out.println(mutantDetectorService.isMutant(dna6));
-    }
-
+    
     public MutantDetectorService(){}
 
 
