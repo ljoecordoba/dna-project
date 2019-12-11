@@ -1,8 +1,6 @@
 package com.dna.service;
 
-import com.dna.domain.DNAChain;
-import com.dna.repository.DNAWriterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dna.domain.DNA;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +16,7 @@ public class MutantDetectorService
 
 
     public boolean isMutant(String[] dna){
-        DNAChain dnaChain = new DNAChain(dna);
+        DNA DNA = new DNA(dna);
         int occurrencesCant = 0;
         for(int i = 0 ;i < dna.length;i ++){
             for (int j = 0 ; j < patterns.length; j++){
@@ -26,19 +24,18 @@ public class MutantDetectorService
             }
         }
         if(occurrencesCant > 1){
-            dnaChain.setMutante(true);
+            DNA.setMutante(true);
             return true;
         }
       List<String> diagonals = getDiagonals(dna);
       for(int i = 0 ; i < diagonals.size();i++){
           for(int j = 0 ; j < patterns.length; j++){
-              System.out.println("La palabra diagonal es: " + diagonals.get(i));
               occurrencesCant += occurrencesCant(diagonals.get(i),patterns[j]);
           }
 
       }
       if(occurrencesCant > 1){
-          dnaChain.setMutante(true);
+          DNA.setMutante(true);
           return true;
       }
 
@@ -50,7 +47,7 @@ public class MutantDetectorService
 
         }
         if(occurrencesCant > 1){
-            dnaChain.setMutante(true);
+            DNA.setMutante(true);
             return true;
         }
         return false;
@@ -93,7 +90,6 @@ public class MutantDetectorService
 
 
     private static int occurrencesCant(String word, String pattern){
-        //System.out.println("la palabra es : " + word + " y el patron es : " + pattern);
         int lastIndex = 0;
         int count = 0;
 
@@ -106,7 +102,6 @@ public class MutantDetectorService
                 lastIndex += pattern.length();
             }
         }
-        //System.out.println(count);
         return count;
     }
 

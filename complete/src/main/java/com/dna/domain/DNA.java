@@ -12,12 +12,12 @@ import java.io.Serializable;
 
 @Data
 @Document(collection = "dna")
-public class DNAChain implements Serializable {
+public class DNA implements Serializable {
 
     private String[] dna;
     private boolean mutante;
 
-    public DNAChain(@JsonProperty(value = "dna", required = true) String[] dna) {
+    public DNA(@JsonProperty(value = "dna", required = true) String[] dna) {
         this.dna = dna; mutante = false;
     }
 
