@@ -1,5 +1,3 @@
-install:
-  - pip install coveralls
 language: java
 jdk:
   - openjdk8
