@@ -29,8 +29,8 @@ public class MutantDetectorServiceTest extends TestCase{
         String[] dna2 = {"AAAA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
         String[] dna3 = {"ATGCGA","CAGTGC","TTATTT","AGACGG","GCGTCA","TCACTG"};
         String[] dna4 = {"ATGCGT","CAGTGT","TTATTT","AGACGT","GCGTCT","TCACTT"};
-
         String[] dna5 = {"A","T","GGGG"};
+        String[] dna6 = {"AG","TC"};
         assertTrue( mutantDetectorService.isMutant(dna) );
         assertTrue( mutantDetectorService.isMutant(dna2) );
         assertFalse( mutantDetectorService.isMutant(dna3) );
