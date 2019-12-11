@@ -37,6 +37,7 @@ public class MutantDetectorServiceTest extends TestCase{
         assertFalse(mutantDetectorService.isMutant(dna4));
         assertTrue(mutantDetectorService.isValidDNA(dna));
         assertFalse(mutantDetectorService.isValidDNA(dna5));
+        assertFalse(mutantDetectorService.isMutant(dna6));
     }
 
 
