@@ -1,0 +1,42 @@
+## Desafio Mercado Libre
+
+Se pidio construir una API para checkear si un ADN es mutante y guardar los mismos datos. Luego adicionalmente se solicito obtener el ratio de mutantes en cuanto a no mutantes.
+La misma se realizo y su endpoint es 
+
+## Verificar mutantes
+
+Se debe enviar un request HTTP con metodo POST a la siguiente URI:
+http://dna-verifier-api.us-east-1.elasticbeanstalk.com/mutant
+
+El body del request debe ser en formato JSON con el siguiente formato:
+
+{"dna" : ["AAA","TTT"]} donde dna es un array de strings claramente, tiene que ser un array de tamaño N donde los strings sean de largo N tambien.
+
+En caso de verificarse un mutante la API devolvera un response con el codigo de status 200 y junto con la leyenda 'El DNA ha sido verificado con exito', caso contrario vendra con un codigo 403 y con el mensaje 'El DNA no pertenecea un mutante'.
+
+## Obtener status
+
+Para obtener el status de la base de datos de ADNs se debe enviar un request HTTP con metodo GET  a la siguiente URI:
+
+http://dna-verifier-api.us-east-1.elasticbeanstalk.com/mutant
+
+El mismo devolvera un mensaje en formato JSON con los siguientes datos:
+
+
+
+## Herramientas
+
+Java como lenguaje de programacion junto con Spring Boot para construir la API.
+
+JUnit para hacer Unit Testing.
+
+Travis CI junto con Coveralls para hacer tests automaticos y medir la cobertura de los tests respectivamente.
+
+AWS Beanstalk para hostear la API REST.
+
+Mongo Atlas como base de datos.
+
+Para testear el endpoint se utilizo el comando CURL de Unix y el API client Insomnia.
+
+
+
