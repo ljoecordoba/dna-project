@@ -10,7 +10,7 @@ http://dna-verifier-api.us-east-1.elasticbeanstalk.com/mutant
 
 El body del request debe ser en formato JSON con el siguiente formato:
 
-{"dna" : ["AAA","TTT"]} donde dna es un array de strings claramente, tiene que ser un array de tamaño N donde los strings sean de largo N tambien.
+{"dna" : ["AAA","TTT","GGG"]} donde dna es un array de strings claramente, tiene que ser un array de tamaño N donde los strings sean de largo N tambien.
 
 En caso de verificarse un mutante la API devolvera un response con el codigo de status 200 y junto con la leyenda 'El DNA ha sido verificado con exito', caso contrario vendra con un codigo 403 y con el mensaje 'El DNA no pertenecea un mutante'.
 
