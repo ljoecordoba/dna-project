@@ -43,7 +43,7 @@ Travis CI junto con Coveralls para hacer tests automaticos y medir la cobertura 
 
 AWS Beanstalk para hostear la API REST.
 
-Mongo Atlas como base de datos.
+MongoDB Atlas como base de datos.
 
 Para testear el endpoint se utilizo el comando CURL de Unix y el API client Insomnia.
 
